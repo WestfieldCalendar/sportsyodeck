@@ -198,8 +198,8 @@
 
         const now = new Date();
         const games = rows
-          .filter(r => r.title && r.start)
-          .map(r => ({ title: r.title.trim(), start: new Date(r.start.trim()) }))
+          .filter(r => r.title && r['scheduled date'])
+          .map(r => ({ title: r.title.trim(), start: new Date(r['scheduled date'].trim()) }))
           .filter(g => !isNaN(g.start.getTime()) && g.start > now)
           .sort((a, b) => a.start - b.start)
           .slice(0, NUM_GAMES_TO_SHOW);
