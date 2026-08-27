@@ -27,7 +27,7 @@
     /* ---- Info panel ---- */
     #panel {
       position: absolute;
-      top: 55%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 900px;
@@ -197,9 +197,10 @@
         const rows = parseCSV(text);
 
         const now = new Date();
+        const dateValue = r => r.start || r['scheduled date'] || '';
         const games = rows
-          .filter(r => r.title && r['scheduled date'])
-          .map(r => ({ title: r.title.trim(), start: new Date(r['scheduled date'].trim()) }))
+          .filter(r => r.title && dateValue(r))
+          .map(r => ({ title: r.title.trim(), start: new Date(dateValue(r).trim()) }))
           .filter(g => !isNaN(g.start.getTime()) && g.start > now)
           .sort((a, b) => a.start - b.start)
           .slice(0, NUM_GAMES_TO_SHOW);
